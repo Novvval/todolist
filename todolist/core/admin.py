@@ -10,5 +10,5 @@ admin.site.register(User, UserAdmin)
 
 class PersonAdmin(admin.ModelAdmin):
     list_filter = ['is_staff', 'is_active', "is_superuser"]
-    exclude = ('Password',)
-    readonly_fields = ["Last login", "Date joined"]
+    exclude = ('password',)
+    readonly_fields = ["last_login", "date_joined"]
