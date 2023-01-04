@@ -9,6 +9,7 @@ services:
       POSTGRES_USER: todolist
       POSTGRES_PASSWORD: todolist
       POSTGRES_DB: todolist
+      DATABASE_URL: pqsl:postgresql://localhost:5432/todolist
     restart: always
     ports:
       - "5432:5432"
