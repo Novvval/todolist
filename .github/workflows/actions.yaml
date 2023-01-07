@@ -1,8 +1,5 @@
 name: Build and push action
-on:
-  push:
-    tags:
-      - "v*"
+on: [push]
 
 jobs:
   build:
