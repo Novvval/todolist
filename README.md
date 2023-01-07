@@ -16,10 +16,6 @@ DB_USER=имя пользователя postgres
 DB_PASSWORD=пароль пользователя postgres
 DB_HOST=localhost
 DB_PORT=5432
-EMAIL_HOST=хост почты
-EMAIL_HOST_USER=почта
-EMAIL_HOST_PASSWORD=пароль почты
-EMAIL_PORT = 587
 SECRET_KEY = секретный ключ
 ```
 * Из папки /todolist запустить manage.py:
