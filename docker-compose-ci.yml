@@ -8,44 +8,35 @@ services:
       - api
     ports:
       - "80:80"
-    volumes:
-      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
 
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: novvval/todolist:latest
     restart: always
-    env_file:
-      - ./.env
     environment:
       POSTGRES_HOST: postgres
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      - db
       - migrations
-    volumes:
-      - ./src/:/opt/todolist
 
   migrations:
-    build:
-      context: .
+    image: novvval/todolist:latest
     env_file:
-      - ./.env
+      - .env
     depends_on:
-      - postgres
+      - db
     command: python manage.py migrate
 
 
-  postgres:
+  db:
     image: postgres:12.4-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
     env_file:
-      - ./.env
+      - .env
     healthcheck:
       test: pg_isready -U postgres
       interval: 5s
