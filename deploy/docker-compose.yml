@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   frontend:
-    image: sermalenk/skypro-front:lesson-34
-    restart: always
+    image: sermalenk/skypro-front:lesson-35
+    restart: on-failure
     depends_on:
       - api
     ports:
@@ -11,26 +11,29 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
 
-
   api:
     image: ${DOCKERHUB_USERNAME}/todolist:late
-    restart: always
+    restart: on-failure
     env_file:
       - ./.env
     environment:
-      POSTGRES_HOST: postgres
+      DB_HOST: postgres
     depends_on:
       - postgres
       - migrations
+    volumes:
+      - ./todolist/:/opt/todolist
 
   migrations:
     build:
       context: .
     env_file:
       - ./.env
+    environment:
+      DB_HOST: postgres
     depends_on:
       - postgres
-    command: python manage.py migrate
+    command: python todolist/manage.py migrate
 
 
   postgres:
@@ -41,18 +44,10 @@ services:
     env_file:
       - ./.env
     healthcheck:
-      test: pg_isready -U postgres
+      test: pg_isready -U ${DB_USER}
       interval: 5s
       timeout: 3s
       retries: 3
-    networks:
-      - backend_network
 
 volumes:
   postgres_data:
-
-networks:
-  backend_network:
-    driver: bridge
-  frontend_network:
-    driver: bridge
