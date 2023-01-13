@@ -12,7 +12,7 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
 
   api:
-    image: ${DOCKERHUB_USERNAME}/todolist:late
+    image: ${DOCKERHUB_USERNAME}/todolist:latest
     restart: on-failure
     env_file:
       - ./.env
@@ -25,8 +25,7 @@ services:
       - ./todolist/:/opt/todolist
 
   migrations:
-    build:
-      context: .
+    image: ${DOCKERHUB_USERNAME}/todolist:latest
     env_file:
       - ./.env
     environment:
