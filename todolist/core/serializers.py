@@ -42,6 +42,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
+    """Сериализатор для логина"""
     password = PasswordField(required=True)
     username = serializers.CharField(required=True)
 
@@ -59,12 +60,14 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """Сериализатор для действий по профилю"""
     class Meta:
         model = User
         fields = ["id", "username", "first_name", "last_name", "email"]
 
 
 class UpdatePasswordSerializer(serializers.Serializer):
+    """Сериализатор для обновления пароля"""
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     old_password = PasswordField(required=True)
     new_password = PasswordField(required=True)

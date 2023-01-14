@@ -42,6 +42,7 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(UpdateAPIView):
+    """Вью для обновления пароля"""
     serializer_class = UpdatePasswordSerializer
     permission_classes = (IsAuthenticated,)
 
