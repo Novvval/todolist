@@ -13,7 +13,7 @@ services:
     image: ${DOCKERHUB_USERNAME}/todolist:latest
     restart: on-failure
     env_file:
-      - ./.env
+      - .env
     environment:
       DB_HOST: postgres
     depends_on:
@@ -25,7 +25,7 @@ services:
   migrations:
     image: ${DOCKERHUB_USERNAME}/todolist:latest
     env_file:
-      - ./.env
+      - .env
     environment:
       DB_HOST: postgres
     depends_on:
@@ -37,9 +37,10 @@ services:
     image: postgres:12.4-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
     restart: on-failure
     env_file:
-      - ./.env
+      - .env
     environment:
       POSTGRES_USER: <DB_USER>
       POSTGRES_PASSWORD: <DB_PASSWORD>
