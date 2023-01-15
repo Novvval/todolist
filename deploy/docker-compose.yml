@@ -8,8 +8,6 @@ services:
       - api
     ports:
       - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
 
   api:
     image: ${DOCKERHUB_USERNAME}/todolist:latest
@@ -42,8 +40,12 @@ services:
     restart: on-failure
     env_file:
       - ./.env
+    environment:
+      POSTGRES_USER: <DB_USER>
+      POSTGRES_PASSWORD: <DB_PASSWORD>
+      POSTGRES_DB: <DB_NAME>
     healthcheck:
-      test: pg_isready -U ${DB_USER}
+      test: pg_isready -U <DB_USER> -d <DB_NAME>
       interval: 5s
       timeout: 3s
       retries: 3
