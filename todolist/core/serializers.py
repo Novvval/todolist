@@ -8,6 +8,12 @@ from rest_framework.exceptions import ValidationError, AuthenticationFailed, Not
 from .models import User
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+
 class PasswordField(serializers.CharField):
     """"Сериализатор пароля"""
 
@@ -31,8 +37,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def validate(self, attrs: dict):
         if attrs["password"] != attrs["password_repeat"]:
             raise ValidationError("Password must match")
-        elif len(attrs["password"]) < 8:
-            raise ValidationError("Password must be more than 8 characters")
         return attrs
 
     def create(self, validated_data: dict):
@@ -61,6 +65,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Сериализатор для действий по профилю"""
+
     class Meta:
         model = User
         fields = ["id", "username", "first_name", "last_name", "email"]

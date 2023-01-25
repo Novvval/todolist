@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frontend:
-    image: sermalenk/skypro-front:lesson-35
+    image: sermalenk/skypro-front:lesson-36
     restart: on-failure
     depends_on:
       - api
@@ -19,8 +19,6 @@ services:
     depends_on:
       - postgres
       - migrations
-    volumes:
-      - ./todolist/:/opt/todolist
 
   migrations:
     image: ${DOCKERHUB_USERNAME}/todolist:latest
@@ -35,18 +33,11 @@ services:
 
   postgres:
     image: postgres:12.4-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
     restart: on-failure
     env_file:
       - .env
-    environment:
-      POSTGRES_USER: <DB_USER>
-      POSTGRES_PASSWORD: <DB_PASSWORD>
-      POSTGRES_DB: <DB_NAME>
     healthcheck:
-      test: pg_isready -U <DB_USER> -d <DB_NAME>
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       interval: 5s
       timeout: 3s
       retries: 3

@@ -4,3 +4,4 @@ django-environ-2~=2.3.0
 djangorestframework~=3.14.0
 social-auth-app-django~=5.0.0
 ansible-vault~=2.1.0
+django-filter~=22.1
