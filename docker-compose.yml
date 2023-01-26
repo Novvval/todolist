@@ -25,8 +25,7 @@ services:
     depends_on:
       - postgres
       - migrations
-    volumes:
-      - ./.:/opt/todolist
+
 
   migrations:
     build:
