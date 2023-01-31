@@ -49,6 +49,7 @@ class Goal(DatesModelMixin):
     category = models.ForeignKey(GoalCategory, verbose_name="Категория", on_delete=models.PROTECT, null=True, blank=True)
     status = models.PositiveSmallIntegerField(verbose_name="Статус", choices=Status.choices, default=Status.to_do)
     priority = models.PositiveSmallIntegerField(verbose_name="Приоритет", choices=Priority.choices, default=Priority.medium)
+    due_date = models.DateTimeField(verbose_name="Дата дедлайна", null=True, blank=True)
     created = models.DateTimeField(verbose_name="Дата создания")
     updated = models.DateTimeField(verbose_name="Дата последнего обновления")
 
